@@ -119,7 +119,7 @@ Your project must include:
 * * *
 
 ### 2\. Get All Books
-**POST** `/api/books`
+
 **GET** `/api/books`
 
 Supports filtering, and sorting.

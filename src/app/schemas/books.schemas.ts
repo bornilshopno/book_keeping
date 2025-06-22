@@ -13,6 +13,9 @@ export const bookSchema = new Schema<Ibooks>({
     description: { type: String },
     copies: { type: Number, required: true, min: 0 },
     available: { type: Boolean, required: true, default: true },
+},{
+    versionKey:false,
+    timestamps:true
 })
 
 // ook Model Fields & Validation
