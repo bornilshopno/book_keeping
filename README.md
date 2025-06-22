@@ -125,8 +125,7 @@ Your project must include:
 Supports filtering, and sorting.
 
 #### Example Query:
-**POST** `/api/books`
-**GET** `/api/books`
+
 `/api/books?filter=FANTASY&sortBy=createdAt&sort=desc&limit=5`
 
 #### Query Parameters:
@@ -162,9 +161,7 @@ Supports filtering, and sorting.
 * * *
 
 ### 3\. Get Book by ID
-**POST** `/api/books`
-**GET** `/api/books`
-`/api/books?filter=FANTASY&sortBy=createdAt&sort=desc&limit=5`
+
 **GET** `/api/books/:bookId`
 
 #### Response:
@@ -191,10 +188,6 @@ Supports filtering, and sorting.
 * * *
 
 ### 4\. Update Book
-**POST** `/api/books`
-**GET** `/api/books`
-`/api/books?filter=FANTASY&sortBy=createdAt&sort=desc&limit=5`
-**GET** `/api/books/:bookId`
 **PUT** `/api/books/:bookId`
 
 #### Request:
@@ -229,11 +222,7 @@ Supports filtering, and sorting.
 * * *
 
 ### 5\. Delete Book
-**POST** `/api/books`
-**GET** `/api/books`
-`/api/books?filter=FANTASY&sortBy=createdAt&sort=desc&limit=5`
-**GET** `/api/books/:bookId`
-**PUT** `/api/books/:bookId`
+
 **DELETE** `/api/books/:bookId`
 
 #### Response:

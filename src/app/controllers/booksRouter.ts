@@ -31,5 +31,36 @@ booksRouter.get("/", async (req, res) => {
         message: "Books retrieved successfully",
         data: result
     })
+})
 
+booksRouter.get("/:bookId",async(req, res)=>{
+    const bookId=req.params.bookId;
+    const result = await Books.find({_id:bookId})
+    res.status(200).send({
+         success: true,
+        message: "Books retrieved successfully",
+        data: result
+    })
+})
+
+booksRouter.put("/:bookId",async(req, res)=>{
+    const bookId=req.params.bookId;
+    const updatedBookDetails=req.body;
+    const result = await Books.findOneAndUpdate({_id:bookId},updatedBookDetails,{new:true})
+    res.status(200).send({
+         success: true,
+        message: "Book updated successfully",
+        data: result
+    })
+})
+
+booksRouter.delete("/:bookId",async(req, res)=>{
+    const bookId=req.params.bookId;   
+    const result = await Books.findOneAndDelete({_id:bookId})
+    console.log(result)
+    res.status(200).send({
+        success: true,
+        message: "Book deleted successfully",
+        data: null
+    })
 })
