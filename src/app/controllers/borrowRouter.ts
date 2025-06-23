@@ -5,14 +5,29 @@ export const borrowRouter = express.Router()
 
 borrowRouter.post("/", async (req, res) => {
     const borrowReq = req.body;
-    console.log(borrowReq)
-    const result = await Borrow.create(borrowReq)
+    try {
+        const result = await Borrow.create(borrowReq)
 
-    res.status(201).send({
-        success: true,
-        message: "Book borrowed successfully",
-        data: result
-    })
+        res.status(201).send({
+            success: true,
+            message: "Book borrowed successfully",
+            data: result
+        })
+    } catch (error) {
+
+        if (error.name === "BorrowValidationError") {
+            res.status(400).send({
+                success: false,
+                message: error.message,
+            });
+        } else {
+            res.status(500).send({
+                success: false,
+                message: "Something went wrong",
+            });
+        }
+
+    }
 })
 
 borrowRouter.get("/", async (req, res) => {

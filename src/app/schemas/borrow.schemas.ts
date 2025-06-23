@@ -1,5 +1,6 @@
-import { Schema } from "mongoose";
+import { Schema, Types } from "mongoose";
 import { Iborrow } from "../interfaces/borrow.interface";
+import { Books } from "../models/books.model";
 
 
 export const BorrowSchema = new Schema<Iborrow>({
@@ -20,7 +21,16 @@ export const BorrowSchema = new Schema<Iborrow>({
     timestamps:true
 })
 
-// Borrow Model Fields & Validation
-// book (objectId) — Mandatory. References the borrowed book’s ID.
-// quantity (number) — Mandatory. Positive integer representing the number of copies borrowed.
-// dueDate (date) — Mandatory. The date by which the book must be returned.
+BorrowSchema.pre("save",async function (next){
+const requestedCopy= this.quantity;
+const id= this.book;
+const result= await Books.findById(id);
+
+const isBorrowAble= requestedCopy < (result?.copies ?? 0);
+if(!isBorrowAble){
+const error = new Error("Insufficient Books to Borrow");
+    error.name = "BorrowValidationError"; // custom error type
+    return next(error);
+}
+next()
+})

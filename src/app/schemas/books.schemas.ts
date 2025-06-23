@@ -11,7 +11,7 @@ export const bookSchema = new Schema<Ibooks>({
     },
     isbn: { type: String, required: true, unique: true },
     description: { type: String },
-    copies: { type: Number, required: true, min: 0 },
+    copies: { type: Number, required: true, min: [0, "Copies must be a positive number"] },
     available: { type: Boolean, required: true, default: true },
 },{
     versionKey:false,
@@ -26,3 +26,4 @@ export const bookSchema = new Schema<Ibooks>({
 // description (string) — Optional. A brief summary or description of the book.
 // copies (number) — Mandatory. Non-negative integer representing total copies available.
 // available (boolean) — Defaults to true. Indicates if the book is currently available for borrowing.
+
