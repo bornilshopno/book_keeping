@@ -77,7 +77,7 @@ Your project must include:
 
 ## ✨ Main Section (50 Marks)
 
-### 1\. Create Book
+<!-- ### 1\. Create Book
 
 **POST** `/api/books`
 
@@ -235,7 +235,7 @@ Supports filtering, and sorting.
 }
 ```
 
-* * *
+* * * -->
 
 
 ## **BOOK API*

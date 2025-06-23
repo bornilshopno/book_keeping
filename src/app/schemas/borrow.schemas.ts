@@ -15,6 +15,9 @@ export const BorrowSchema = new Schema<Iborrow>({
             message: "Date must be of Today or a Future date"
         }
      }
+},{
+    versionKey:false,
+    timestamps:true
 })
 
 // Borrow Model Fields & Validation
