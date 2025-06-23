@@ -1,19 +1,41 @@
 import app from "../../app";
 import express from 'express'
 import { Books } from "../models/books.model";
+import mongoose from "mongoose";
 
 
 export const booksRouter = express.Router()
 
 booksRouter.post("/", async (req, res) => {
     const newBook = req.body;
-    const result = await Books.create(newBook)
+    try {
+        const result = await Books.create(newBook)
 
-    res.status(201).send({
-        success: true,
-        message: "Book created successfully",
-        data: result
-    })
+        res.status(201).send({
+            success: true,
+            message: "Book created successfully",
+            data: result
+        })
+    } catch (error) {
+        if (error instanceof mongoose.Error.ValidationError) {
+            // Send full mongoose validation error structure
+            return res.status(400).json({
+                success: false,
+                message: "Validation failed",
+                error: {
+                    name: error.name,
+                    errors: error.errors,
+                },
+            });
+        }
+
+
+        res.status(500).json({
+            success: false,
+            message: "Something went wrong",
+            error: error.message,
+        });
+    }
 })
 
 booksRouter.get("/", async (req, res) => {
@@ -22,7 +44,7 @@ booksRouter.get("/", async (req, res) => {
     const sortBy = req.query.sortBy as string;
     const sortRaw = typeof req.query.sort === "string" ? req.query.sort.toLowerCase() : "asc";
     const sort: "asc" | "desc" = sortRaw === "desc" ? "desc" : "asc";
-    const sortBySort = (sortBy && sort) ? { [sortBy]: sort.toString() as any} : {};
+    const sortBySort = (sortBy && sort) ? { [sortBy]: sort.toString() as any } : {};
     const limitQuery = req.query.limit;
     const limit = limitQuery ? parseInt(limitQuery as string) : 100
     const result = await Books.find(filterByGenre).sort(sortBySort).limit(limit)
@@ -33,30 +55,30 @@ booksRouter.get("/", async (req, res) => {
     })
 })
 
-booksRouter.get("/:bookId",async(req, res)=>{
-    const bookId=req.params.bookId;
-    const result = await Books.find({_id:bookId})
+booksRouter.get("/:bookId", async (req, res) => {
+    const bookId = req.params.bookId;
+    const result = await Books.find({ _id: bookId })
     res.status(200).send({
-         success: true,
+        success: true,
         message: "Books retrieved successfully",
         data: result
     })
 })
 
-booksRouter.put("/:bookId",async(req, res)=>{
-    const bookId=req.params.bookId;
-    const updatedBookDetails=req.body;
-    const result = await Books.findOneAndUpdate({_id:bookId},updatedBookDetails,{new:true})
+booksRouter.put("/:bookId", async (req, res) => {
+    const bookId = req.params.bookId;
+    const updatedBookDetails = req.body;
+    const result = await Books.findOneAndUpdate({ _id: bookId }, updatedBookDetails, { new: true })
     res.status(200).send({
-         success: true,
+        success: true,
         message: "Book updated successfully",
         data: result
     })
 })
 
-booksRouter.delete("/:bookId",async(req, res)=>{
-    const bookId=req.params.bookId;   
-    const result = await Books.findOneAndDelete({_id:bookId})
+booksRouter.delete("/:bookId", async (req, res) => {
+    const bookId = req.params.bookId;
+    const result = await Books.findOneAndDelete({ _id: bookId })
     console.log(result)
     res.status(200).send({
         success: true,

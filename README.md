@@ -246,18 +246,18 @@ Supports filtering, and sorting.
 **PUT** `/api/books/:bookId`
 **DELETE** `/api/books/:bookId`
 
-### 6\. Borrow a Book
+<!-- ### 6\. Borrow a Book
 
 **POST** `/api/borrow`
 
-#### Business Logic:
+#### Business Logic: -->
 
-*   Verify the book has enough available copies.
-*   Deduct the requested quantity from the book’s copies.
-*   If copies become 0, update `available` to `false` (implement this using a static method or instance method).
-*   Save the borrow record with all relevant details.
+//*   Verify the book has enough available copies.
+//*   Deduct the requested quantity from the book’s copies.
+//*   If copies become 0, update `available` to `false` (implement this using a static method or instance method).
+//*   Save the borrow record with all relevant details.
 
-#### Request:
+<!-- #### Request:
 
 ```json
 {
@@ -282,11 +282,11 @@ Supports filtering, and sorting.
     "updatedAt": "2025-06-18T07:12:15.123Z"
   }
 }
-```
+``` -->
 
 * * *
 
-### 7\. Borrowed Books Summary (Using Aggregation)
+<!-- ### 7\. Borrowed Books Summary (Using Aggregation)
 
 `GET /api/borrow`
 
@@ -327,7 +327,7 @@ Use MongoDB aggregation pipeline to:
       "totalQuantity": 3
     }
   ]
-}
+} -->
 ```
 
 

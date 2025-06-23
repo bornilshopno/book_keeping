@@ -13,9 +13,10 @@ export const bookSchema = new Schema<Ibooks>({
     description: { type: String },
     copies: { type: Number, required: true, min: [0, "Copies must be a positive number"] },
     available: { type: Boolean, required: true, default: true },
-},{
-    versionKey:false,
-    timestamps:true
+    
+}, {
+    versionKey: false,
+    timestamps: true
 })
 
 // ook Model Fields & Validation
@@ -27,3 +28,8 @@ export const bookSchema = new Schema<Ibooks>({
 // copies (number) — Mandatory. Non-negative integer representing total copies available.
 // available (boolean) — Defaults to true. Indicates if the book is currently available for borrowing.
 
+bookSchema.static("isBorrowAble", async function (bookId, quantity) {
+    const book = await this.findById(bookId);
+    if (!book) return false;
+    return quantity <= (book.copies ?? 0);
+})
