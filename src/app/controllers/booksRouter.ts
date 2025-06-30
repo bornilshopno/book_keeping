@@ -1,12 +1,12 @@
 import app from "../../app";
-import express from 'express'
+import express, { Request, Response } from 'express'
 import { Books } from "../models/books.model";
 import mongoose from "mongoose";
 
 
-export const booksRouter = express.Router()
+export const booksRouter = express.Router();
 
-booksRouter.post("/", async (req, res) => {
+booksRouter.post("/", async(req:Request, res:Response):Promise<any> => {
     const newBook = req.body;
     try {
         const result = await Books.create(newBook)
@@ -16,10 +16,9 @@ booksRouter.post("/", async (req, res) => {
             message: "Book created successfully",
             data: result
         })
-    } catch (error) {
+    } catch (error: unknown) {
         if (error instanceof mongoose.Error.ValidationError) {
-            // Send full mongoose validation error structure
-            return res.status(400).json({
+        return res.status(400).json({
                 success: false,
                 message: "Validation failed",
                 error: {
@@ -33,7 +32,6 @@ booksRouter.post("/", async (req, res) => {
         res.status(500).json({
             success: false,
             message: "Something went wrong",
-            error: error.message,
         });
     }
 })
