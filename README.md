@@ -1,10 +1,10 @@
-# 📖 Assignment: Library Management API with Express, TypeScript & MongoDB
+# 📖 Assignment Project: Library Management API with Express, TypeScript & MongoDB
 
-## 🎯 Objective
+## 🎯 Project Feature
 
-Develop a **Library Management System** using **Express**, **TypeScript**, and **MongoDB (via Mongoose)**.
+A **Library Management System** using **Express**, **TypeScript**, and **MongoDB (via Mongoose)**.
 
-Your project must include:
+Which includes:
 
 *   Proper schema validation
 *   Business logic enforcement (e.g., availability control on borrow)
@@ -15,13 +15,30 @@ Your project must include:
 
 * * *
 
-## 🔧 Core Requirements
+## 🔧 Tech Stacks
 
-*   Use **Express** and **TypeScript**
+*   **Express** and **TypeScript**
 *   Connect to MongoDB using **Mongoose**
-*   Follow the **exact API endpoints and response structures** described below
+*   Environment Variables with **dotenv**
 
 * * *
+
+## Models
+
+2 models used in this API application
+
+**books** and **borrow**
+
+## API endpoints
+
+*books*
+**POST** `/api/books`
+**GET** `/api/books`
+**GET** `/api/books?filter=FANTASY&sortBy=createdAt&sort=desc&limit=5`
+**GET** `/api/books/:bookId`
+**PUT** `/api/books/:bookId`
+**DELETE** `/api/books/:bookId`
+
 
 ### Book Model Fields & Validation
 
@@ -238,13 +255,13 @@ Supports filtering, and sorting.
 * * * -->
 
 
-## **BOOK API*
+<!-- ## **BOOK API*
 **POST** `/api/books`
 **GET** `/api/books`
 `/api/books?filter=FANTASY&sortBy=createdAt&sort=desc&limit=5`
 **GET** `/api/books/:bookId`
 **PUT** `/api/books/:bookId`
-**DELETE** `/api/books/:bookId`
+**DELETE** `/api/books/:bookId` -->
 
 <!-- ### 6\. Borrow a Book
 

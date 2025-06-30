@@ -23,7 +23,7 @@ export const BorrowSchema = new Schema<Iborrow>({
 })
 
 BorrowSchema.pre("save", async function (next) {
-    const isBorrowable = await Books.isBorrowable(this.book, this.quantity);
+    const isBorrowable = (await Books as any).isBorrowable(this.book, this.quantity);
     if (!isBorrowable) {
         const error = new Error("Insufficient Books to Borrow");
         error.name = "BorrowValidationError";

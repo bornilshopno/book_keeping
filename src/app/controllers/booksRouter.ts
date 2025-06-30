@@ -17,7 +17,7 @@ booksRouter.post("/", async(req:Request, res:Response):Promise<any> => {
             data: result
         })
     } catch (error: unknown) {
-        if (error instanceof mongoose.Error.ValidationError) {
+        if (error instanceof mongoose.Error.ValidationError)
         return res.status(400).json({
                 success: false,
                 message: "Validation failed",
@@ -34,7 +34,7 @@ booksRouter.post("/", async(req:Request, res:Response):Promise<any> => {
             message: "Something went wrong",
         });
     }
-})
+)
 
 booksRouter.get("/", async (req, res) => {
     const filter = req.query.filter;
