@@ -23,27 +23,14 @@ export const BorrowSchema = new Schema<Iborrow>({
 })
 
 BorrowSchema.pre("save", async function (next) {
-    const isBorrowable = (await Books as any).isBorrowable(this.book, this.quantity);
-    if (!isBorrowable) {
+    console.log("from PRE",this.book, this.quantity)
+    const isProceedable = await Books.isBorrowAble(this.book, this.quantity);
+    console.log(this.book, this.quantity)
+    if (!isProceedable) {
         const error = new Error("Insufficient Books to Borrow");
-        error.name = "BorrowValidationError";
         return next(error);
     }
     next();
-
-    //     const requestedCopy = this.quantity;
-    //     const id = this.book;
-    //     const result = await Books.findById(id);
-    // console.log("from PRE")
-    //     const isBorrowAble = requestedCopy <= (result?.copies ?? 0);
-    //     if (!isBorrowAble) {
-    //         const error = new Error("Insufficient Books to Borrow");
-    //         error.name = "BorrowValidationError"; // custom error type
-    //         return next(error);
-    //     }
-    //     next()
-
-
 })
 
 BorrowSchema.post("save", async function (doc, next) {

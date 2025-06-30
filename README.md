@@ -1,4 +1,4 @@
-# 📖 Assignment Project: Library Management API with Express, TypeScript & MongoDB
+#  Assignment Project: Library Management API with Express, TypeScript & MongoDB
 
 ## 🎯 Project Feature
 
@@ -34,26 +34,39 @@ Which includes:
 *books*
 
 **POST** 
+- to create a new book record
 
 `https://assignment-bay-theta.vercel.app/api/books`
 
 **GET** 
+- to get all the books in the list 
 `https://assignment-bay-theta.vercel.app/api/books`
 
-**GET** `https://assignment-bay-theta.vercel.app/api/books?filter=FANTASY&sortBy=createdAt&sort=desc&limit=5`
+- filtering and sorting option also enabled
 
-**GET** `https://assignment-bay-theta.vercel.app/api/books/:bookId`
+`https://assignment-bay-theta.vercel.app/api/books?filter=FANTASY&sortBy=createdAt&sort=desc&limit=5`
 
-**PUT** `https://assignment-bay-theta.vercel.app/api/books/:bookId`
+- to get a specific book by bookId
 
-**DELETE** `https://assignment-bay-theta.vercel.app/api/books/:bookId`
+ `https://assignment-bay-theta.vercel.app/api/books/:bookId`
+
+-to update information through a bookId
+
+ `https://assignment-bay-theta.vercel.app/api/books/:bookId`
+
+-to drop a book through a bookId
+
+ `https://assignment-bay-theta.vercel.app/api/books/:bookId`
 
 *borrow*
 
 **GET** 
+- to get all the borrow information
+
 `https://assignment-bay-theta.vercel.app/api/borrow`
 
 **POST**
+- to post a borrow request
 `https://assignment-bay-theta.vercel.app/api/borrow`
 
 
@@ -71,7 +84,7 @@ Which includes:
 
 ## **GitHub Repository Link**
 
-(https://github.com/bornilshopno/book_keeping)
+https://github.com/bornilshopno/book_keeping
 
 ## **Live Deployment Link**
 

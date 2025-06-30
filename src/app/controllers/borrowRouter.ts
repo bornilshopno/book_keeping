@@ -4,46 +4,16 @@ import { Borrow } from '../models/borrow.model';
 
 export const borrowRouter = express.Router()
 
-borrowRouter.post("/", async (req:Request, res:Response): Promise<any> => {
+borrowRouter.post("/", async (req: Request, res: Response): Promise<any> => {
     const borrowReq = req.body;
-    try {
-        const result = await Borrow.create(borrowReq)
-
-        res.status(201).send({
-            success: true,
-            message: "Book borrowed successfully",
-            data: result
-        })
-    } 
-    catch (error) {
-
-        return res.status(400).json({
-        success: false,
-        message: "Validation failed",
-        // error: {
-        //   name: error.name,
-        //   errors: error.errors,
-        // },
-      });
-//  if (error instanceof mongoose.Error.ValidationError) {
-//       // Send full mongoose validation error structure
-//       return res.status(400).json({
-//         success: false,
-//         message: "Validation failed",
-//         error: {
-//           name: error.name,
-//           errors: error.errors,
-//         },
-//       });
-//     }
-
-
-//     res.status(500).json({
-//       success: false,
-//       message: "Something went wrong",
-//     //   error: error.message,
-//     });
-}}
+    console.log(borrowReq, "borrow req")
+    const result = await Borrow.create(borrowReq)
+    res.status(201).send({
+        success: true,
+        message: "Book borrowed successfully",
+        data: result
+    })
+}
 )
 
 borrowRouter.get("/", async (req, res) => {

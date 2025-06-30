@@ -18,40 +18,13 @@ const borrow_model_1 = require("../models/borrow.model");
 exports.borrowRouter = express_1.default.Router();
 exports.borrowRouter.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const borrowReq = req.body;
-    try {
-        const result = yield borrow_model_1.Borrow.create(borrowReq);
-        res.status(201).send({
-            success: true,
-            message: "Book borrowed successfully",
-            data: result
-        });
-    }
-    catch (error) {
-        return res.status(400).json({
-            success: false,
-            message: "Validation failed",
-            // error: {
-            //   name: error.name,
-            //   errors: error.errors,
-            // },
-        });
-        //  if (error instanceof mongoose.Error.ValidationError) {
-        //       // Send full mongoose validation error structure
-        //       return res.status(400).json({
-        //         success: false,
-        //         message: "Validation failed",
-        //         error: {
-        //           name: error.name,
-        //           errors: error.errors,
-        //         },
-        //       });
-        //     }
-        //     res.status(500).json({
-        //       success: false,
-        //       message: "Something went wrong",
-        //     //   error: error.message,
-        //     });
-    }
+    console.log(borrowReq, "borrow req");
+    const result = yield borrow_model_1.Borrow.create(borrowReq);
+    res.status(201).send({
+        success: true,
+        message: "Book borrowed successfully",
+        data: result
+    });
 }));
 exports.borrowRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield borrow_model_1.Borrow.aggregate([
