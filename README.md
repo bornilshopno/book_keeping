@@ -31,7 +31,7 @@ Which includes:
 
 ## API endpoints
 
-*books*
+*books* model
 
 **POST** 
 - to create a new book record
@@ -40,6 +40,7 @@ Which includes:
 
 **GET** 
 - to get all the books in the list 
+
 `https://assignment-bay-theta.vercel.app/api/books`
 
 - filtering and sorting option also enabled
@@ -50,15 +51,15 @@ Which includes:
 
  `https://assignment-bay-theta.vercel.app/api/books/:bookId`
 
--to update information through a bookId
+- to update information through a bookId
 
  `https://assignment-bay-theta.vercel.app/api/books/:bookId`
 
--to drop a book through a bookId
+- to drop a book through a bookId
 
  `https://assignment-bay-theta.vercel.app/api/books/:bookId`
 
-*borrow*
+*borrow* model
 
 **GET** 
 - to get all the borrow information
@@ -91,6 +92,8 @@ https://github.com/bornilshopno/book_keeping
 https://assignment-bay-theta.vercel.app/
 
 ## **Video Explanation (Public Link)**
+
+[ClickHere](https://drive.google.com/file/d/1U8kXE_CBdCCE2LaDHIVT35Eq1fWKeA--/view?usp=sharing)
 
 
 * * *
