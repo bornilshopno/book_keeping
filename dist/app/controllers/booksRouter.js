@@ -28,8 +28,7 @@ exports.booksRouter.post("/", (req, res) => __awaiter(void 0, void 0, void 0, fu
         });
     }
     catch (error) {
-        if (error instanceof mongoose_1.default.Error.ValidationError) {
-            // Send full mongoose validation error structure
+        if (error instanceof mongoose_1.default.Error.ValidationError)
             return res.status(400).json({
                 success: false,
                 message: "Validation failed",
@@ -38,12 +37,11 @@ exports.booksRouter.post("/", (req, res) => __awaiter(void 0, void 0, void 0, fu
                     errors: error.errors,
                 },
             });
-        }
-        res.status(500).json({
-            success: false,
-            message: "Something went wrong",
-        });
     }
+    res.status(500).json({
+        success: false,
+        message: "Something went wrong",
+    });
 }));
 exports.booksRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const filter = req.query.filter;

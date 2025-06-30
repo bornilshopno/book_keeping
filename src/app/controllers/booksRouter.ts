@@ -1,4 +1,3 @@
-import app from "../../app";
 import express, { Request, Response } from 'express'
 import { Books } from "../models/books.model";
 import mongoose from "mongoose";

@@ -32,7 +32,7 @@ exports.BorrowSchema = new mongoose_1.Schema({
 });
 exports.BorrowSchema.pre("save", function (next) {
     return __awaiter(this, void 0, void 0, function* () {
-        const isBorrowable = yield books_model_1.Books.isBorrowable(this.book, this.quantity);
+        const isBorrowable = (yield books_model_1.Books).isBorrowable(this.book, this.quantity);
         if (!isBorrowable) {
             const error = new Error("Insufficient Books to Borrow");
             error.name = "BorrowValidationError";
@@ -60,8 +60,17 @@ exports.BorrowSchema.post("save", function (doc, next) {
         const requested = doc.quantity;
         const updatedCopies = existingCopies - requested;
         console.log(doc, "from post save", "updatedCopies", updatedCopies, "requested", requested, "existingCopies", existingCopies);
-        (updatedCopies === 0) ?
-            yield books_model_1.Books.findByIdAndUpdate(doc.book, { copies: updatedCopies, available: false }) : yield books_model_1.Books.findByIdAndUpdate(doc.book, { copies: updatedCopies });
+        if (updatedCopies === 0) {
+            yield books_model_1.Books.findByIdAndUpdate(doc.book, {
+                copies: updatedCopies,
+                available: false,
+            });
+        }
+        else {
+            yield books_model_1.Books.findByIdAndUpdate(doc.book, {
+                copies: updatedCopies,
+            });
+        }
         next();
     });
 });

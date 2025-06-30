@@ -2,7 +2,6 @@ import express, { Application, Request, Response } from 'express'
 import { booksRouter } from './app/controllers/booksRouter'
 import { borrowRouter } from './app/controllers/borrowRouter'
 
-
 const app: Application = express()
 app.use(express.json())
 

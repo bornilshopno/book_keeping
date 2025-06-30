@@ -1,4 +1,4 @@
-import { Schema, Types } from "mongoose";
+import { Schema, } from "mongoose";
 import { Iborrow } from "../interfaces/borrow.interface";
 import { Books } from "../models/books.model";
 
@@ -52,8 +52,16 @@ BorrowSchema.post("save", async function (doc, next) {
     const requested = doc.quantity;
     const updatedCopies = existingCopies - requested
     console.log(doc, "from post save", "updatedCopies", updatedCopies, "requested", requested, "existingCopies", existingCopies);
-    (updatedCopies === 0) ?
-        await Books.findByIdAndUpdate(doc.book, { copies: updatedCopies, available: false }) : await Books.findByIdAndUpdate(doc.book, { copies: updatedCopies })
+   if (updatedCopies === 0) {
+  await Books.findByIdAndUpdate(doc.book, {
+    copies: updatedCopies,
+    available: false,
+  });
+} else {
+  await Books.findByIdAndUpdate(doc.book, {
+    copies: updatedCopies,
+  });
+}
 
     next()
 })

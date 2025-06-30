@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.borrowRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const borrow_model_1 = require("../models/borrow.model");
-const mongoose_1 = __importDefault(require("mongoose"));
 exports.borrowRouter = express_1.default.Router();
 exports.borrowRouter.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const borrowReq = req.body;
@@ -28,22 +27,30 @@ exports.borrowRouter.post("/", (req, res) => __awaiter(void 0, void 0, void 0, f
         });
     }
     catch (error) {
-        if (error instanceof mongoose_1.default.Error.ValidationError) {
-            // Send full mongoose validation error structure
-            return res.status(400).json({
-                success: false,
-                message: "Validation failed",
-                error: {
-                    name: error.name,
-                    errors: error.errors,
-                },
-            });
-        }
-        res.status(500).json({
+        return res.status(400).json({
             success: false,
-            message: "Something went wrong",
-            error: error.message,
+            message: "Validation failed",
+            // error: {
+            //   name: error.name,
+            //   errors: error.errors,
+            // },
         });
+        //  if (error instanceof mongoose.Error.ValidationError) {
+        //       // Send full mongoose validation error structure
+        //       return res.status(400).json({
+        //         success: false,
+        //         message: "Validation failed",
+        //         error: {
+        //           name: error.name,
+        //           errors: error.errors,
+        //         },
+        //       });
+        //     }
+        //     res.status(500).json({
+        //       success: false,
+        //       message: "Something went wrong",
+        //     //   error: error.message,
+        //     });
     }
 }));
 exports.borrowRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
