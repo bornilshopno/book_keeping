@@ -1,5 +1,5 @@
 import { Schema, Types } from "mongoose";
-import { IBookBorrow, Ibooks } from "../interfaces/books.interface";
+import {  Ibooks } from "../interfaces/books.interface";
 
 
 export const bookSchema = new Schema<Ibooks>({
