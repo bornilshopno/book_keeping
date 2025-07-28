@@ -6,7 +6,14 @@ import { borrowRouter } from './app/controllers/borrowRouter'
 const app: Application = express()
 app.use(express.json())
 
-app.use(cors());
+const corsOptions = {
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
 
 app.use("/api/books", booksRouter)
 app.use("/api/borrow", borrowRouter)
