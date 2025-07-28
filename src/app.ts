@@ -15,8 +15,8 @@ app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
 
 
-app.use("/api/books", booksRouter)
-app.use("/api/borrow", borrowRouter)
+// app.use("/api/books", booksRouter)
+// app.use("/api/borrow", borrowRouter)
 
 app.get("/", (req:Request, res:Response)=>{
     res.send("WELCOME THE BOOKS SERVER")
