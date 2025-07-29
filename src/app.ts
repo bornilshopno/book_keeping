@@ -7,16 +7,17 @@ const app: Application = express()
 app.use(express.json())
 
 const corsOptions = {
-  origin: '*',
+  origin: 'http://localhost:5173',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
 
 
-// app.use("/api/books", booksRouter)
-// app.use("/api/borrow", borrowRouter)
+app.use("/api/books", booksRouter)
+app.use("/api/borrow", borrowRouter)
 
 app.get("/", (req:Request, res:Response)=>{
     res.send("WELCOME THE BOOKS SERVER")
