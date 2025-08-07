@@ -10,11 +10,11 @@ const borrowRouter_1 = require("./app/controllers/borrowRouter");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 const corsOptions = {
-    origin: '*',
+    origin: ['https://readers-heaven.netlify.app', 'http://localhost:5173',],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
 };
 app.use((0, cors_1.default)(corsOptions));
-app.options('*', (0, cors_1.default)(corsOptions));
 app.use("/api/books", booksRouter_1.booksRouter);
 app.use("/api/borrow", borrowRouter_1.borrowRouter);
 app.get("/", (req, res) => {

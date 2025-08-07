@@ -53,11 +53,13 @@ exports.booksRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, fun
     const limitQuery = req.query.limit;
     const limit = limitQuery ? parseInt(limitQuery) : 100;
     const result = yield books_model_1.Books.find(filterByGenre).sort(sortBySort).limit(limit);
-    res.status(200).send({
-        success: true,
-        message: "Books retrieved successfully",
-        data: result
-    });
+    res.status(200).send(result
+    //     {
+    //     success: true,
+    //     message: "Books retrieved successfully",
+    //     data: result
+    // }
+    );
 }));
 exports.booksRouter.get("/:bookId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const bookId = req.params.bookId;
@@ -70,8 +72,11 @@ exports.booksRouter.get("/:bookId", (req, res) => __awaiter(void 0, void 0, void
 }));
 exports.booksRouter.put("/:bookId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const bookId = req.params.bookId;
-    const updatedBookDetails = req.body;
-    const result = yield books_model_1.Books.findOneAndUpdate({ _id: bookId }, updatedBookDetails, { new: true });
+    const { updatedBook } = req.body;
+    const result = yield books_model_1.Books.findByIdAndUpdate(bookId, updatedBook, {
+        new: true, // Return the updated document
+        runValidators: true // Validate against schema
+    });
     res.status(200).send({
         success: true,
         message: "Book updated successfully",
@@ -81,7 +86,6 @@ exports.booksRouter.put("/:bookId", (req, res) => __awaiter(void 0, void 0, void
 exports.booksRouter.delete("/:bookId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const bookId = req.params.bookId;
     const result = yield books_model_1.Books.findOneAndDelete({ _id: bookId });
-    console.log(result);
     res.status(200).send({
         success: true,
         message: "Book deleted successfully",

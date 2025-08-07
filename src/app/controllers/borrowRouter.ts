@@ -36,7 +36,7 @@ borrowRouter.get("/", async (req, res) => {
             $unwind: "$book"
         },
         {
-            $project: { book: { title: 1, isbn: 1 }, totalQuantity: 1, _id: 0 }
+            $project: { book: { title: 1, isbn: 1, author:1, genre:1 }, totalQuantity: 1, _id: 0 }
         }
     ])
 

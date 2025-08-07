@@ -46,7 +46,7 @@ exports.borrowRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, fu
             $unwind: "$book"
         },
         {
-            $project: { book: { title: 1, isbn: 1 }, totalQuantity: 1, _id: 0 }
+            $project: { book: { title: 1, isbn: 1, author: 1, genre: 1 }, totalQuantity: 1, _id: 0 }
         }
     ]);
     res.status(201).send({
