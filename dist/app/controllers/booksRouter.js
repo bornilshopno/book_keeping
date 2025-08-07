@@ -53,13 +53,29 @@ exports.booksRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, fun
     const limitQuery = req.query.limit;
     const limit = limitQuery ? parseInt(limitQuery) : 100;
     const result = yield books_model_1.Books.find(filterByGenre).sort(sortBySort).limit(limit);
-    res.status(200).send(result
-    //     {
-    //     success: true,
-    //     message: "Books retrieved successfully",
-    //     data: result
-    // }
-    );
+    res.status(200).send(result);
+}));
+//for paginated data
+exports.booksRouter.get("/pagedBooks", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const skip = (page - 1) * limit;
+        const result = yield books_model_1.Books.find()
+            .skip(skip)
+            .limit(limit);
+        const total = yield books_model_1.Books.countDocuments();
+        res.status(200).json({
+            total,
+            page,
+            limit,
+            totalPages: Math.ceil(total / limit),
+            data: result,
+        });
+    }
+    catch (error) {
+        res.status(500).json({ error: "Failed to fetch books." });
+    }
 }));
 exports.booksRouter.get("/:bookId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const bookId = req.params.bookId;

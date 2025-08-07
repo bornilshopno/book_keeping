@@ -5,22 +5,22 @@ import mongoose from "mongoose";
 
 export const booksRouter = express.Router();
 
-booksRouter.post("/", async(req:Request, res:Response):Promise<any> => {
+booksRouter.post("/", async (req: Request, res: Response): Promise<any> => {
     const newBook = req.body;
     try {
         const result = await Books.create(newBook)
 
         res.status(201).send(
-            
+
             {
-            success: true,
-            message: "Book created successfully",
-            data: result
-        }
-    )
+                success: true,
+                message: "Book created successfully",
+                data: result
+            }
+        )
     } catch (error: unknown) {
         if (error instanceof mongoose.Error.ValidationError)
-        return res.status(400).json({
+            return res.status(400).json({
                 success: false,
                 message: "Validation failed",
                 error: {
@@ -28,14 +28,14 @@ booksRouter.post("/", async(req:Request, res:Response):Promise<any> => {
                     errors: error.errors,
                 },
             });
-        }
-
-
-        res.status(500).json({
-            success: false,
-            message: "Something went wrong",
-        });
     }
+
+
+    res.status(500).json({
+        success: false,
+        message: "Something went wrong",
+    });
+}
 )
 
 booksRouter.get("/", async (req, res) => {
@@ -48,16 +48,34 @@ booksRouter.get("/", async (req, res) => {
     const limitQuery = req.query.limit;
     const limit = limitQuery ? parseInt(limitQuery as string) : 100
     const result = await Books.find(filterByGenre).sort(sortBySort).limit(limit)
-    res.status(200).send(result
-        
-    //     {
-    //     success: true,
-    //     message: "Books retrieved successfully",
-    //     data: result
-    // }
-
-)
+    res.status(200).send(result)
 })
+
+//for paginated data
+booksRouter.get("/pagedBooks", async (req, res) => {
+  try {
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+    const skip = (page - 1) * limit;
+
+    const result = await Books.find()
+      .skip(skip)
+      .limit(limit);
+
+    const total = await Books.countDocuments();
+
+    res.status(200).json({
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch books." });
+  }
+});
+
 
 booksRouter.get("/:bookId", async (req, res) => {
     const bookId = req.params.bookId;
@@ -71,14 +89,14 @@ booksRouter.get("/:bookId", async (req, res) => {
 
 booksRouter.put("/:bookId", async (req, res) => {
     const bookId = req.params.bookId;
-    const {updatedBook} = req.body;
+    const { updatedBook } = req.body;
     const result = await Books.findByIdAndUpdate(
-      bookId,
-      updatedBook,
-      {
-        new: true,          // Return the updated document
-        runValidators: true // Validate against schema
-      }
+        bookId,
+        updatedBook,
+        {
+            new: true,          // Return the updated document
+            runValidators: true // Validate against schema
+        }
     );
     res.status(200).send({
         success: true,
